@@ -14,17 +14,18 @@ Options
 
 Commands
 
-  check           Ensure that required software is installed and present
-  destroy         Stops and deletes all traces of the vagrant machine
-  env             Outputs environment variables for Docker to connect remotely
-  halt, stop      Stops the vagrant machine
-  reload          Restarts vagrant machine, loads new configuration
-  resume          Resume the suspended vagrant machine
-  ssh             Connects to the machine via SSH
-  status          Outputs status of the vagrant machine
-  suspend, pause  Suspends the machine
-  up, start       Starts and provisions the vagrant environment
-  vagrant         Issue subcommands directly to the vagrant CLI
+  check            Ensure that required software is installed and present
+  destroy          Stops and deletes all traces of the vagrant machine
+  env              Outputs environment variables for Docker to connect remotely
+  halt, stop       Stops the vagrant machine
+  reload           Restarts vagrant machine, loads new configuration
+  resume           Resume the suspended vagrant machine
+  ssh              Connects to the machine via SSH
+  snag-port [port] Creates a ssh tunnel for this port and forwards it to localhost
+  status           Outputs status of the vagrant machine
+  suspend, pause   Suspends the machine
+  up, start        Starts and provisions the vagrant environment
+  vagrant          Issue subcommands directly to the vagrant CLI
 
 "
 }
@@ -132,5 +133,6 @@ case "$1" in
   suspend|su*|pause|p)  shift; exec_vagrant suspend $*;;
   up|u*|start|star*)    shift; exec_vagrant up --provision $*;;
   vagrant|v*)           shift; exec_vagrant $*;;
+  sang-port|snag*)      shift; exec_vagrant ssh -- -qTfN2 -L $1:localhost:$1;;
   *)                    usage; exit 1;;
 esac
